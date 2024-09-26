@@ -27,7 +27,8 @@ const server = new Server(manifest)
 const app_path = `/${manifest.appPath}`
 const manifest_assets = manifest.assets ?? new Set
 const manifest_prerendered = prerendered ?? new Set
-
+const asset_path = manifest.appPath.replace(manifest.appDir, "")
+const manifest_assets_path = asset_path != '' ? new Set([...(Array.from(manifest_assets).map(item => asset_path + item))]) : manifest_assets
 let initialised = false
 
 // crypto.getRandomNumbers polyfill
@@ -60,7 +61,7 @@ function isStatic(path) {
 }
 
 function isInManifest(file) {
-    if ((manifest_assets.has(file) || manifest_assets.has(file + '/index.html')) ||
+    if ((manifest_assets_path.has(file) || manifest_assets_path.has(file + '/index.html')) ||
         (manifest_prerendered.has(file || '/'))) {
         return true
     }
