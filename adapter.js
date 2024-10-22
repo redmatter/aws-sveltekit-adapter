@@ -1,4 +1,4 @@
-import * as fs from 'fs'
+import * as fs from 'node:fs'
 import depcheck from 'depcheck';
 import { execSync as exec } from 'child_process'
 import { dirname, resolve } from 'path'
