@@ -1,6 +1,6 @@
 import * as fs from 'node:fs'
 import depcheck from 'depcheck';
-import { execSync as exec } from 'child_process'
+import { execSync as exec } from 'node:child_process'
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { rollup } from 'rollup';
@@ -153,7 +153,15 @@ export default function ({
                     // dependencies could have deep exports, so we need a regex
                     ...Object.keys(missing_pkgs || {}).map((d) => new RegExp(`^${d}(\\/.*)?$`))
                 ],
-                plugins: [nodeResolve({ preferBuiltins: true }), commonjs({ dynamicRequireTargets }), json()].concat(minify ? [terser()] : []),
+                plugins: [
+                    nodeResolve({
+                        preferBuiltins: true
+                    }),
+                    commonjs({
+                        dynamicRequireTargets
+                    }),
+                    json()
+                ].concat(minify ? [terser()] : []),
             });
 
             await bundle.write({
