@@ -1,10 +1,10 @@
 {
-  "name": "@natterbox/aws-sveltekit-adapter",
+  "name": "@redmatter/aws-sveltekit-adapter",
   "repository": {
     "type": "git",
-    "url": "ssh://git@bitbucket.redmatter.com/aws/aws-sveltekit-adapter.git"
+    "url": "git+https://github.com/redmatter/aws-sveltekit-adapter.git"
   },
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "SvelteKit adapter for AWS Lambda",
   "main": "adapter.js",
   "scripts": {
