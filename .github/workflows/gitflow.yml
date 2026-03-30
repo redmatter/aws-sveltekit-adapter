@@ -1,4 +1,4 @@
-ame: Generic Gitflow & Release Notes
+name: Generic Gitflow & Release Notes
 
 on:
     workflow_dispatch:
