@@ -1,0 +1,32 @@
+ame: Generic Gitflow & Release Notes
+
+on:
+    workflow_dispatch:
+        inputs:
+            version_increment:
+                type: choice
+                required: false
+                description: 'BUMP TYPE: Select if you want an auto-increment the latest version (ignored if Manual Version is set)'
+                options:
+                  - minor
+                  - patch
+                  - major
+            version:
+                type: string
+                required: false
+                description: 'MANUAL VERSION: Enter a specific version (e.g., 1.2.3). Leaves empty to use Bump Type above.'
+
+    pull_request:
+        types:
+          - closed
+        branches:
+          - master
+          - develop
+
+jobs:
+    release_workflow:
+        uses: redmatter/github-workflows/.github/workflows/gitflow.yml@v1
+        with:
+            version: ${{ inputs.version }}
+            version_increment: ${{ inputs.version_increment }}
+        secrets: inherit

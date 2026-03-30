@@ -1,0 +1,38 @@
+version: 2
+
+updates:
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "daily"
+    time: "09:00"
+    timezone: "UTC"
+  open-pull-requests-limit: 10
+  labels:
+  - "dependencies"
+  - "github-actions"
+  commit-message:
+    prefix: "chore(deps) [skip ci]"
+    include: "scope"
+  ignore:
+  # Ignore minor and patch for ALL redmatter/github-workflows paths (e.g. v1.16.0 → v1.36.1)
+  # Only major bumps (v1 → v2) should trigger a PR
+  - dependency-name: "redmatter/github-workflows*"
+    update-types:
+    - "version-update:semver-minor"
+    - "version-update:semver-patch"
+  groups:
+    # Matches full paths like redmatter/github-workflows/.github/workflows/gitflow.yml
+    redmatter-workflows:
+      patterns:
+      - "redmatter/github-workflows*"
+      update-types:
+      - "major"
+    third-party-actions:
+      patterns:
+      - "*"
+      exclude-patterns:
+      - "redmatter/github-workflows*"
+      update-types:
+      - "minor"
+      - "patch"
